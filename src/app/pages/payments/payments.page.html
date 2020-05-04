@@ -1,0 +1,69 @@
+<ion-header>
+    <ion-toolbar color="primary">
+      <ion-buttons slot="start">
+        <ion-menu-button></ion-menu-button>
+      </ion-buttons>
+      <ion-title>Pagos</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  
+  <ion-content>
+    <ion-card>
+      <ion-card-header style="font-size: 90%">
+        <ion-card-title>Datos de la orden</ion-card-title>
+      </ion-card-header> 
+      <ion-card-content>
+        <ion-item style="font-size: 80%">
+          <strong>Pagado: </strong>	&nbsp; Bs.{{ productService.pagado }}
+        </ion-item>
+        <ion-item style="font-size: 80%">
+          <strong>Diferencia: </strong>	&nbsp;  Bs.{{ productService.diferencia }}
+        </ion-item>
+        <ion-item  style="font-size: 80%">
+          <strong>Total: </strong>	&nbsp;  Bs.{{ productService.order_find['total'] }}
+        </ion-item>
+        <ion-item style="font-size: 80%">
+          <strong>Estado: </strong>	&nbsp; {{ productService.msj }}
+        </ion-item>
+      </ion-card-content>
+    </ion-card>
+
+    <ion-card-content>
+        <ion-item style="font-size: 50%">
+          <ion-col size="3">
+            Fecha: 
+          </ion-col>
+          <ion-col size="4">
+            Banco:
+          </ion-col>
+          <ion-col size="4">
+            Monto:
+          </ion-col>
+          <ion-col size="1">
+            
+          </ion-col>
+        </ion-item>
+        <ion-item style="font-size: 50%" *ngFor="let pay of productService.payments">
+          <ion-col size="3">
+            {{pay.date}} 
+          </ion-col>
+          <ion-col size="4">
+            {{pay.bank}}
+          </ion-col>
+          <ion-col size="4">
+            {{pay.amount}}
+          </ion-col>
+          <ion-col size="1">
+            <ion-icon *ngIf="authService.token.user_type == 'Administrador'" [hidden]="productService.diferencia == 0" style="size: 80%" name="trash" (click)="eliminar(pay.id)"></ion-icon>
+          </ion-col>
+        </ion-item>
+      </ion-card-content>
+
+      <ion-row>
+        <ion-col size="12">
+            <ion-button expand="block" color="secondary" [hidden]="productService.diferencia == 0" (click)="convertir_pedido(productService.order_find['id'])">Registrar Pago</ion-button>
+        </ion-col>
+      </ion-row>
+
+  </ion-content>
+  

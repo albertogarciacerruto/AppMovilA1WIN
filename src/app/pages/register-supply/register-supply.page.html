@@ -1,0 +1,29 @@
+<ion-header>
+    <ion-toolbar color="primary">
+      <ion-buttons slot="start">
+        <ion-menu-button></ion-menu-button>
+      </ion-buttons>
+      <ion-title>Abastecer Insumos</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  
+  <ion-content>
+      <ion-img src="http://a1win.net/a1inv/storage/app/{{productService.supply_find.image}}" style="width: 150px; height: 200px; display:block; margin:auto"></ion-img>
+  
+      <ion-item>
+        Nombre: {{productService.supply_find.name}}
+      </ion-item>
+  
+
+    <form #form="ngForm" (ngSubmit)="register_supply(form, productService.supply_find.id)" method="post">
+      <ion-item>
+          <ion-label position="floating">Cantidad</ion-label>
+          <ion-input [(ngModel)]="supply.meters" name="meters" id="meters" pattern="/^[0-9]{1,3}?(.)?[0-9]{1,3}$/" required></ion-input>
+      </ion-item>
+  
+      <ion-input type="hidden" [(ngModel)]="supply.user" name="user" id="user" value="{{user}}"></ion-input>
+  
+      <ion-button [disabled]="form.valid == false"  type="submit" expand="full" color="success" onClick="this.disabled=true">Abastecer</ion-button>
+    </form>
+  
+  </ion-content>

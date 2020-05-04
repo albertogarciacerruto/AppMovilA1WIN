@@ -1,0 +1,24 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-button color="danger" (click)="dismissLogin()">X</ion-button>
+    <ion-title>Iniciar Sesión</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content padding>
+  <ion-img src="../assets/img/a1winBlack.png" style="width: 150px; height: 200px; display:block; margin:auto"></ion-img>
+  <form #form="ngForm" (ngSubmit)="login(form)" method="post">
+    <ion-item>
+      <ion-label position="floating">Correo Electrónico</ion-label>
+      <ion-input ngModel type="email" name="email" pattern="^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$" required></ion-input>
+    </ion-item>
+  
+    <ion-item>
+      <ion-label position="floating">Contraseña</ion-label>
+      <ion-input ngModel type="password" name="password" required></ion-input>
+    </ion-item>
+  
+    <ion-button [disabled]="form.valid == false" type="submit" expand="full" color="primary" onClick="this.disabled=true">Iniciar Sesión</ion-button>
+  </form>
+  <!--<p text-center>Don't have a account?</p>
+  <ion-button expand="full" color="danger" (click)="registerModal()">Register</ion-button>-->
+</ion-content>

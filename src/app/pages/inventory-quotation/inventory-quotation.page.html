@@ -1,0 +1,152 @@
+<ion-header>
+    <ion-toolbar color="primary">
+      <ion-buttons slot="start">
+        <ion-menu-button></ion-menu-button>
+      </ion-buttons>
+      <ion-title>Inventario Disponible</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  
+  <ion-content>
+    <ion-card>
+      <ion-card-header style="font-size: 90%">
+        <ion-card-title>Cotización</ion-card-title>
+      </ion-card-header>
+    
+      <ion-card-content>
+        <ion-item style="font-size: 80%">
+          Cliente: {{productService.user_quotation}} 
+        </ion-item>
+        <ion-item style="font-size: 80%">
+          Estado: {{productService.status}}
+        </ion-item>
+        <ion-item style="font-size: 80%">
+          Solicitud: {{productService.date_init}}
+        </ion-item>
+        <ion-item style="font-size: 80%">
+          Vencimiento: {{productService.date_finish}}
+        </ion-item>
+      </ion-card-content>
+    </ion-card>
+
+    <!-- Searchbar with cancel button shown on focus -->
+    <ion-searchbar showCancelButton="focus" (ionChange)="buscar($event)"></ion-searchbar>
+    <ion-grid>
+      <ion-item-divider *ngFor="let item of productService.inventarios | filtro: textoBuscar: 'name'">
+        <ion-row>
+          <ion-col size="3">
+            <img src="http://a1win.net/a1inv/storage/app/{{item.image}}">
+          </ion-col>
+          <ion-col size="9">
+            <ion-row style="font-size:80%; font-weight: bold; color:black">
+            {{item.name}}
+            </ion-row>
+            <ion-row style="font-size:80%; font-weight: bold; color:black">
+            Talla: {{item.size}}
+            </ion-row>
+            <ion-row style="font-size:80%; font-weight: bold; color:black">
+            Precio: Bs.{{item.amount}}
+            </ion-row>
+            <ion-row style="font-size:80%; font-weight: bold; color:black">
+            Cantidad: {{item.total_quantity}} Ud.
+            </ion-row>
+            <ion-row>
+              <ion-col size="12">
+                  <ion-button *ngIf="productService.status == 'Por Confirmar'" expand="block" color="warning" (click)="showPrompt(item.product_id, productService.iden_quotation)">Cargar</ion-button>
+              </ion-col>
+            </ion-row>
+          </ion-col>
+        </ion-row>
+      </ion-item-divider>
+    </ion-grid>
+
+
+    <ion-card>
+      <ion-card-header style="font-size: 85%">
+        <ion-card-title>Solicitado</ion-card-title>
+      </ion-card-header>
+    
+      <ion-card-content>
+        <ion-item style="font-size: 65%">
+          <ion-col size="5">
+            Producto: 
+          </ion-col>
+          <ion-col size="3">
+            Cant.:
+          </ion-col>
+          <ion-col size="4">
+            Eliminar:
+          </ion-col>
+        </ion-item>
+        <ion-item style="font-size: 65%" *ngFor="let item of productService.inv_quo">
+          <ion-col size="5">
+            {{item.name}}
+          </ion-col>
+          <ion-col size="3">
+            {{item.volume}}
+          </ion-col>
+          <ion-col size="4">
+              <ion-button *ngIf="productService.status == 'Por Confirmar'" expand="block" color="secondary" style="font-size: 80%" (click)="eliminar_item_cotizacion(item.quotation_id, item.inventory_id)">Eliminar</ion-button>
+          </ion-col>
+        </ion-item>
+      </ion-card-content>
+    </ion-card>
+
+    <ion-card>
+        <ion-card-header style="font-size: 85%">
+          <ion-card-title>Adicional</ion-card-title>
+        </ion-card-header>
+      
+        <ion-card-content>
+          <ion-item style="font-size: 65%">
+            <ion-col size="5">
+              Producto: 
+            </ion-col>
+            <ion-col size="3">
+              Cant.:
+            </ion-col>
+            <ion-col size="4">
+              Eliminar:
+            </ion-col>
+          </ion-item>
+          <ion-item style="font-size: 65%" *ngFor="let item of productService.aditionals">
+            <ion-col size="5">
+              {{item.name}}
+            </ion-col>
+            <ion-col size="3">
+              {{item.quantity}}
+            </ion-col>
+            <ion-col size="4">
+              <ion-button *ngIf="productService.status == 'Por Confirmar'" expand="block" color="secondary" (click)="eliminar_item_adicional(item.id)">Eliminar</ion-button>
+            </ion-col>
+          </ion-item>
+        </ion-card-content>
+      </ion-card>
+
+      <ion-card>
+        <ion-card-header style="font-size: 85%">
+          <ion-card-title>Totales</ion-card-title>
+        </ion-card-header>
+      
+        <ion-card-content>
+          <ion-item style="font-size: 65%">
+            <ion-col size="6">
+              IVA:
+            </ion-col>
+            <ion-col size="6">
+              Total:
+            </ion-col>
+          </ion-item>
+          <ion-item style="font-size: 65%">
+            <ion-col size="6">
+              Bs.{{productService.iva_quotation}}
+            </ion-col>
+            <ion-col size="6">
+              Bs.{{productService.total_quotation}}
+            </ion-col>
+          </ion-item>
+        </ion-card-content>
+      </ion-card>
+
+      <ion-button  *ngIf="productService.status == 'Por Confirmar'" expand="block" color="secondary" (click)="convertir_pedido(productService.iden_quotation)" onClick="this.disabled=true">Convertir a Pedido</ion-button>
+  </ion-content>

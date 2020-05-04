@@ -1,0 +1,45 @@
+<ion-header>
+    <ion-toolbar color="primary">
+      <ion-buttons slot="start">
+        <ion-menu-button></ion-menu-button>
+      </ion-buttons>
+      <ion-title>Pedidos en Sistema</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <ion-content>
+    <!-- Searchbar with cancel button shown on focus -->
+    <ion-searchbar showCancelButton="focus" (ionChange)="buscar($event)"></ion-searchbar>
+    <ion-list>
+      <ion-item-divider *ngFor="let item of productService.pedidos | filtro: textoBuscar: 'status'">
+        <ion-row *ngIf="item.status != 'Devuelto'">
+          <ion-col size="12">
+            <ion-row style="font-size:80%; font-weight: bold; color:black">
+            #OP-{{item.id}} | Fecha Solicitud: {{item.date_init}}
+            </ion-row>
+            <ion-row style="font-size:80%; font-weight: bold; color:black">
+            Solicitante: {{item.name}}
+            </ion-row>
+            <ion-row *ngIf="item.date_final != null" style="font-size:80%; font-weight: bold; color:black">
+            Fecha Vencimiento: {{item.date_final}}
+            </ion-row>
+            <ion-row *ngIf="item.date_final == null" style="font-size:80%; font-weight: bold; color:black">
+              Estado: Procesando
+              </ion-row>
+            <ion-row>
+              <ion-col size="4">
+                  <ion-button expand="block" color="secondary" (click)="insertar_fecha(item.id)"><ion-text style="font-size:85%">Editar</ion-text></ion-button>
+              </ion-col>
+              <ion-col size="4">
+                  <ion-button *ngIf="item.status == 'procesando'" expand="block" color="danger" (click)="devolver_pedido(item.id)"><ion-text style="font-size:85%">Devolver</ion-text></ion-button>
+                  <ion-button *ngIf="item.status != 'procesando'" expand="block" color="warning" (click)="generatePDF(item.id)"><ion-text style="font-size:85%">Ver Nota</ion-text></ion-button>
+              </ion-col>
+              <ion-col size="4">
+                  <ion-button expand="block" color="success" (click)="buscar_pagos(item.id)"><ion-text style="font-size:85%">Pagos</ion-text></ion-button>
+              </ion-col>
+            </ion-row>
+          </ion-col>
+        </ion-row>
+      </ion-item-divider>
+    </ion-list>
+  </ion-content>

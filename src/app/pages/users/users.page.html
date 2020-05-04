@@ -1,0 +1,46 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Usuarios Registrados</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content> 
+  <!-- Searchbar with cancel button shown on focus -->
+  <ion-searchbar showCancelButton="focus" (ionChange)="buscar($event)"></ion-searchbar>
+  <ion-list>
+    <ion-item-divider *ngFor="let item of userService.usuarios | filtro: textoBuscar: 'name'">
+      <ion-row [hidden]="item.name == 'Administrador'">
+        <ion-col size="12">
+          <ion-row style="font-size:80%; font-weight: bold; color:black">
+          {{item.name}} {{item.lastname}}
+          </ion-row>
+          <ion-row style="font-size:80%; font-weight: bold; color:black">
+          Rol: {{item.type}}
+          </ion-row>
+          <ion-row style="font-size:80%; font-weight: bold; color:black">
+          Correo: {{item.email}}
+          </ion-row>
+          <ion-row style="font-size:80%; font-weight: bold; color:black">
+          Número de Identificación: {{item.identification_number}}
+          </ion-row>
+          <ion-row>
+            <ion-col size="4">
+                <ion-button  expand="block" color="secondary" (click)="search_user(item.id)"><ion-text style="font-size:85%">Editar</ion-text></ion-button>
+            </ion-col>
+            <ion-col size="4">
+                <ion-button *ngIf="item.status == 'Activo'" [disabled]="item.type != 'Cliente'" expand="block" color="tertiary" (click)="bloquear_usuario(item.id)"><ion-text style="font-size:85%">Bloquear</ion-text></ion-button>
+                <ion-button *ngIf="item.status == 'Bloqueado'" expand="block" color="tertiary" (click)="desbloquear_usuario(item.id)"><ion-text style="font-size:85%">Liberar</ion-text></ion-button>
+            </ion-col>
+            <ion-col size="4">
+                <ion-button *ngIf="authService.token.user_type == 'Administrador'" expand="block" color="warning" (click)="borrar_usuario(item.id)"><ion-text style="font-size:85%">Eliminar</ion-text></ion-button>
+            </ion-col>
+          </ion-row>
+        </ion-col>
+      </ion-row>
+    </ion-item-divider>
+  </ion-list>
+</ion-content>

@@ -1,0 +1,44 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-button color="light" (click)="dismissRegister()">Cerrar</ion-button>
+    <ion-title>Registrar Usuario</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content padding>
+  <ion-img src="../assets/img/a1winBlack.png" style="width: 150px; height: 200px; display:block; margin:auto"></ion-img>
+  <form #form="ngForm" (ngSubmit)="register(form)" method="post">
+    <ion-item>
+        <ion-label position="floating">Nombre</ion-label>
+        <ion-input ngModel name="name"></ion-input>
+    </ion-item>
+  
+    <ion-item>
+      <ion-label position="floating">Apellido</ion-label>
+      <ion-input ngModel name="last_name"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Número de identificación</ion-label>
+      <ion-input ngModel name="identification_number"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Tipo de usuario</ion-label>
+      <ion-input ngModel name="type"></ion-input>
+    </ion-item>
+  
+    <ion-item>
+      <ion-label position="floating">Correo Electrónico</ion-label>
+      <ion-input type="email" ngModel name="email"></ion-input>
+    </ion-item>
+  
+    <ion-item>
+      <ion-label position="floating">Contraseña</ion-label>
+      <ion-input type="password" ngModel name="password"></ion-input>
+    </ion-item>
+  
+    <ion-button type="submit" expand="full" color="danger">Registrar</ion-button>
+  </form>
+  <!--<p text-center>Already have a account?</p>
+  <ion-button expand="full" color="primary" (click)="loginModal()">Login</ion-button>-->
+</ion-content>  

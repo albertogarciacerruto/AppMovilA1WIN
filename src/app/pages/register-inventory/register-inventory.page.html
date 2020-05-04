@@ -1,0 +1,46 @@
+<ion-header>
+    <ion-toolbar color="primary">
+      <ion-buttons slot="start">
+        <ion-menu-button></ion-menu-button>
+      </ion-buttons>
+      <ion-title>Abastecer Inventario</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  
+  <ion-content>
+      <ion-img src="http://a1win.net/a1inv/storage/app/{{productService.product_find.image}}" style="width: 150px; height: 200px; display:block; margin:auto"></ion-img>
+  
+      <ion-item>
+        <strong>Nombre: </strong>&nbsp; {{productService.product_find.name}}
+      </ion-item>
+
+      <ion-item>
+        <strong>Talla: </strong>&nbsp; {{productService.product_find.size}}
+      </ion-item>
+
+      <ion-item>
+        <strong>Descripción: </strong>&nbsp; <p>{{productService.product_find.description}}</p>
+      </ion-item>
+
+    <form #form="ngForm" (ngSubmit)="register_inventory(form, productService.product_find.id)" method="post">
+      <ion-item>
+          <ion-label position="floating">Cantidad</ion-label>
+          <ion-input [(ngModel)]="inventory.quantity" name="quantity" id="quantity" pattern="[0-9+]*" required></ion-input>
+      </ion-item>
+
+      <ion-item>
+          <ion-label>Ubicaciones</ion-label>
+          <ion-select [(ngModel)]="inventory._location_id" name="location_id" id="location_id" required>
+            <ion-item>
+              <ion-select-option *ngFor="let item of productService.ubicaciones"  value="{{item.id}}">{{item.name}} - {{item.store}}</ion-select-option>
+            </ion-item>
+          </ion-select>
+        </ion-item>
+  
+      <ion-input type="hidden" [(ngModel)]="inventory.user" name="user" id="user" value="{{user}}"></ion-input>
+      <ion-input type="hidden" [(ngModel)]="inventory.product_id" name="product_id" id="product_id" value="{{productService.product_find.id}}"></ion-input>
+  
+      <ion-button [disabled]="form.valid == false" type="submit" expand="full" color="success" onClick="this.disabled=true">Abastecer</ion-button>
+    </form>
+  
+  </ion-content>

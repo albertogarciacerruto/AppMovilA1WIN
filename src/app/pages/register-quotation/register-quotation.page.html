@@ -1,0 +1,35 @@
+<ion-header>
+    <ion-toolbar color="primary">
+      <ion-buttons slot="start">
+        <ion-menu-button></ion-menu-button>
+      </ion-buttons>
+      <ion-title>Registrar Cotización</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  
+  <ion-content>
+    <ion-img src="../assets/img/a1winBlack.png" style="width: 150px; height: 200px; display:block; margin:auto"></ion-img>
+    <form #form="ngForm" (ngSubmit)="register_quotation(form)" method="post">
+      <ion-item>
+        <ion-label position="floating">Fecha</ion-label>
+        <ion-datetime displayFormat="YYYY/MM/DD" min="{{productService.min}}" max="{{productService.max}}" [(ngModel)]="quotation.date_init" name="date_init" id="date_init" required></ion-datetime>
+      </ion-item>
+
+      <ion-item>
+          <ion-label>Cliente</ion-label>
+          <ion-select [(ngModel)]="quotation.user_id" name="user_id" id="user_id" required>
+            <ion-item>
+              <ion-select-option *ngFor="let item of productService.clientes"  value="{{item.id}}">{{item.name}} {{item.lastname}}</ion-select-option>
+            </ion-item>
+          </ion-select>
+      </ion-item>
+  
+      <ion-input type="hidden" [(ngModel)]="quotation.user" name="user" id="user" value="{{ user }}"></ion-input>
+  
+  
+      <ion-button [disabled]="form.valid == false" type="submit" expand="full" color="secondary" onClick="this.disabled=true">Registar</ion-button>
+    </form>
+  
+  </ion-content>
+
+

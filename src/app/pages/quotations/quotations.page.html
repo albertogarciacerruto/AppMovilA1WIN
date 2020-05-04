@@ -1,0 +1,38 @@
+<ion-header>
+    <ion-toolbar color="primary">
+      <ion-buttons slot="start">
+        <ion-menu-button></ion-menu-button>
+      </ion-buttons>
+      <ion-title>Cotizaciones en Sistema</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <ion-content>
+    <!-- Searchbar with cancel button shown on focus -->
+    <ion-searchbar showCancelButton="focus" (ionChange)="buscar($event)"></ion-searchbar>
+    <ion-list>
+      <ion-item-divider *ngFor="let item of productService.cotizaciones | filtro: textoBuscar: 'status'">
+        <ion-row>
+          <ion-col size="12">
+            <ion-row style="font-size:80%; font-weight: bold; color:black">
+            Fecha Solicitud: {{item.date_init}}
+            </ion-row>
+            <ion-row style="font-size:80%; font-weight: bold; color:black">
+            Solicitante: {{item.name}}
+            </ion-row>
+            <ion-row style="font-size:80%; font-weight: bold; color:black">
+            Fecha Vencimiento: {{item.date_finish}}
+            </ion-row>
+            <ion-row>
+              <ion-col size="6">
+                  <ion-button [hidden]="item.name == 'Administrador'" expand="block" color="secondary" (click)="editar_cotizacion(item.id)"><ion-text style="font-size:85%">Editar</ion-text></ion-button>
+              </ion-col>
+              <ion-col size="6">
+                  <ion-button *ngIf="authService.token.user_type == 'Administrador'" [hidden]="item.name == 'Administrador'" expand="block" color="warning" (click)="borrar_cotizacion(item.id)"><ion-text style="font-size:85%">Eliminar</ion-text></ion-button>
+                </ion-col>
+            </ion-row>
+          </ion-col>
+        </ion-row>
+      </ion-item-divider>
+    </ion-list>
+  </ion-content>

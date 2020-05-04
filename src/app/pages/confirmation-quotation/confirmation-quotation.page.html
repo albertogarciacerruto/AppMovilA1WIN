@@ -1,0 +1,37 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Actualizar Usuarios</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <ion-img src="http://a1win.net/a1inv/storage/app/{{image}}" style="width: 150px; height: 200px; display:block; margin:auto"></ion-img>
+    <ion-item>
+      <ion-row style="font-weight: bold; color:black">
+        Producto: {{name}}
+      </ion-row>
+    </ion-item>
+    <ion-item>
+      <ion-row style="font-weight: bold; color:black">
+          Cantidad Faltante: {{faltante}}
+      </ion-row>
+    </ion-item>
+    <ion-item>
+      <ion-row style="font-weight: bold; color:black">
+        Fecha Aproximada: {{productService.date_aprox}}
+      </ion-row>
+    </ion-item>
+
+    <ion-row>
+      <ion-col size="6">
+          <ion-button expand="block" color="secondary" (click)="aceptar(quotation_id, productService.date_aprox, product_id, faltante)" onClick="this.disabled=true">Aceptar</ion-button>
+      </ion-col>
+      <ion-col size="6">
+        <ion-button expand="block" color="warning" (click)="rechazar(quotation_id, product_id)" onClick="this.disabled=true">Rechazar</ion-button>
+    </ion-col>
+    </ion-row>
+
+</ion-content>

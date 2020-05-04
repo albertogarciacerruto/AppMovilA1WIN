@@ -1,0 +1,7 @@
+{
+  "name": "a1winApp",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "angular"
+}

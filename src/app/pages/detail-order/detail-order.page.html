@@ -1,0 +1,139 @@
+<ion-header>
+    <ion-toolbar color="primary">
+      <ion-buttons slot="start">
+        <ion-menu-button></ion-menu-button>
+      </ion-buttons>
+      <ion-title>Detalle del Pedido</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  
+  <ion-content>
+    <ion-card *ngFor="let item of productService.order">
+      <ion-card-header style="font-size: 90%">
+        <ion-card-title>Pedido</ion-card-title>
+      </ion-card-header>
+    
+      <ion-card-content>
+        <ion-item>
+          <ion-col style="font-size: 80%" size="12">
+            Cliente: {{item.name}}
+          </ion-col>
+        </ion-item>
+        <ion-item>
+          <ion-col style="font-size: 80%" size="12">
+            Aprox: {{item.date_aprox}}
+          </ion-col>
+        </ion-item>
+        <ion-item>
+          <ion-col style="font-size: 80%" size="12">
+            Solicitud: {{item.date_init}}
+          </ion-col>
+        </ion-item>
+        <div *ngIf="item.date_final == null">
+            <div *ngIf="authService.type != 'Cliente'">
+              <form #form="ngForm" (ngSubmit)="agregar_fecha(form, item.id)" method="post">
+                <ion-item>
+                  <ion-label position="floating" style="font-size: 80%">Fecha Entrega</ion-label>
+                  <ion-datetime displayFormat="YYYY-MM-DD" min="2019-01-01" max="2030-01-01" [(ngModel)]="order.date_final" name="date_final" id="date_final" required></ion-datetime>
+                </ion-item>
+                <ion-item>
+                  <ion-button [disabled]="form.valid == false" type="submit" expand="block" color="secondary" onClick="this.disabled=true">Agregar</ion-button>
+                </ion-item>
+              </form>
+            </div>
+          </div>
+        <ion-item *ngIf="item.date_final != null">
+          <ion-col style="font-size: 80%" size="12">
+            Entrega: {{item.date_final}}
+          </ion-col>
+        </ion-item>
+      </ion-card-content>
+    </ion-card>
+
+    <ion-card>
+      <ion-card-header style="font-size: 85%">
+        <ion-card-title>Solicitado</ion-card-title>
+      </ion-card-header>
+    
+      <ion-card-content>
+        <ion-item style="font-size: 65%">
+          <ion-col size="5">
+            Producto: 
+          </ion-col>
+          <ion-col size="3">
+            Cant.:
+          </ion-col>
+          <ion-col size="4">
+            Precio:
+          </ion-col>
+        </ion-item>
+        <ion-item style="font-size: 65%" *ngFor="let item of productService.inv_quo">
+          <ion-col size="5">
+            {{item.name}}
+          </ion-col>
+          <ion-col size="3">
+            {{item.volume}}
+          </ion-col>
+          <ion-col size="4">
+            Bs.{{item.amount}}
+          </ion-col>
+        </ion-item>
+      </ion-card-content>
+    </ion-card>
+
+    <ion-card>
+        <ion-card-header style="font-size: 85%">
+          <ion-card-title>Adicional</ion-card-title>
+        </ion-card-header>
+      
+        <ion-card-content>
+          <ion-item style="font-size: 65%">
+            <ion-col size="5">
+              Producto: 
+            </ion-col>
+            <ion-col size="3">
+              Cant.:
+            </ion-col>
+            <ion-col size="4">
+              Precio:
+            </ion-col>
+          </ion-item>
+          <ion-item style="font-size: 65%" *ngFor="let item of productService.aditionals">
+            <ion-col size="5">
+              {{item.name}}
+            </ion-col>
+            <ion-col size="3">
+              {{item.quantity}}
+            </ion-col>
+            <ion-col size="4">
+              Bs.{{item.amount}}
+            </ion-col>
+          </ion-item>
+        </ion-card-content>
+      </ion-card>
+
+      <ion-card>
+        <ion-card-header style="font-size: 85%">
+          <ion-card-title>Totales</ion-card-title>
+        </ion-card-header>
+      
+        <ion-card-content>
+          <ion-item style="font-size: 65%">
+            <ion-col size="6">
+              IVA:
+            </ion-col>
+            <ion-col size="6">
+              Total:
+            </ion-col>
+          </ion-item>
+          <ion-item style="font-size: 70%" *ngFor="let item of productService.order">
+            <ion-col size="6">
+              Bs.{{item.iva}}
+            </ion-col>
+            <ion-col size="6">
+              Bs.{{item.total}}
+            </ion-col>
+          </ion-item>
+        </ion-card-content>
+      </ion-card>
+  </ion-content>

@@ -1,0 +1,50 @@
+<ion-header>
+    <ion-toolbar color="primary">
+      <ion-buttons slot="start">
+        <ion-menu-button></ion-menu-button>
+      </ion-buttons>
+      <ion-title>Insumos Escasos</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  
+  <ion-content>
+    <ion-row>
+      <ion-col size="6">
+        <ion-button expand="block" color="warning" (click)="inventory()">Inventario</ion-button>
+      </ion-col>
+      <ion-col size="6">
+        <ion-button expand="block" color="secondary" (click)="supply()">Insumos</ion-button>
+      </ion-col>
+    </ion-row>
+  
+    <ion-list *ngIf="productService.supply_existence.length > 0 ">
+      <ion-item-divider *ngFor="let item of productService.supply_existence">
+        <ion-row>
+          <ion-col size="3">
+            <img src="http://a1win.net/a1inv/storage/app/{{item.image}}">
+          </ion-col>
+          <ion-col size="9">
+            <ion-row style="font-size:80%; font-weight: bold; color:black">
+            {{item.name}}
+            </ion-row>
+            <ion-row style="font-size:80%; font-weight: bold; color:black">
+            Precio: Bs.{{item.amount}}
+            </ion-row>
+            <ion-row style="font-size:80%; font-weight: bold; color:black">
+            Cantidad: {{item.meters}} Metros.
+            </ion-row>
+            <ion-row>
+              <ion-col size="12">
+                  <ion-button expand="block" color="warning" (click)="buscar_insumo(item.id)">Abastecer</ion-button>
+              </ion-col>
+            </ion-row>
+          </ion-col>
+        </ion-row>
+      </ion-item-divider>
+    </ion-list>
+    <ion-item *ngIf="productService.supply_existence.length == 0" style="color: gray; text-align:center; margin-top:20px; margin-bottom: 20px">
+      No hay Insumos con baja existencia en el sistema.
+    </ion-item>
+  
+  </ion-content>
+  

@@ -1,0 +1,44 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Productos Finales</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <!-- Searchbar with cancel button shown on focus -->
+  <ion-searchbar showCancelButton="focus" (ionChange)="buscar($event)"></ion-searchbar>
+  <ion-list>
+    <ion-item-divider *ngFor="let item of productService.productos | filtro: textoBuscar: 'name'">
+      <ion-row>
+        <ion-col size="3">
+          <img src="http://a1win.net/a1inv/storage/app/{{item.image}}">
+        </ion-col>
+        <ion-col size="9">
+          <ion-row style="font-size:80%; font-weight: bold; color:black">
+          {{item.name}}
+          </ion-row>
+          <ion-row style="font-size:80%; font-weight: bold; color:black">
+          Talla: {{item.size}}
+          </ion-row>
+          <ion-row style="font-size:80%; font-weight: bold; color:black">
+          Precio: Bs.{{item.amount}}
+          </ion-row>
+          <ion-row style="font-size:80%; color:black">
+          Descripción: {{item.description}}
+          </ion-row>
+          <ion-row>
+            <ion-col size="6">
+                <ion-button expand="block" color="secondary" (click)="buscar_producto(item.id)"><ion-text style="font-size:85%">Proveer</ion-text></ion-button>
+            </ion-col>
+            <ion-col size="6">
+                <ion-button *ngIf="authService.token.user_type == 'Administrador'" expand="block" color="warning" (click)="borrar_producto(item.id)"><ion-text style="font-size:85%">Eliminar</ion-text></ion-button>
+              </ion-col>
+          </ion-row>
+        </ion-col>
+      </ion-row>
+    </ion-item-divider>
+  </ion-list>
+</ion-content>

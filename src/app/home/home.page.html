@@ -1,0 +1,35 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>
+      Inicio
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <ion-img src="../assets/img/a1winBlack.png" style="width: 230px; height: 230px; display:block; margin:auto"></ion-img>
+    <ion-list *ngIf="authService.type == 'Administrador'">
+      <ion-button  expand="block" (click)="ir_usuarios()"><strong>Usuarios</strong></ion-button>
+      <ion-button  expand="block" (click)="ir_productos()"><strong>Productos</strong></ion-button>
+      <ion-button  expand="block" (click)="ir_inventario()"><strong>Inventario</strong></ion-button>
+      <ion-button  expand="block" (click)="ir_cotizaciones()"><strong>Cotizaciones</strong></ion-button>
+      <ion-button  expand="block" (click)="ir_pedidos()"><strong>Pedidos</strong></ion-button>
+    </ion-list>
+    <ion-list *ngIf="authService.type == 'Cliente'">
+      <ion-button  expand="block" (click)="ir_inventario()"><strong>Inventario</strong></ion-button>
+      <ion-button  expand="block" (click)="ir_cotizaciones()"><strong>Cotizaciones</strong></ion-button>
+      <ion-button  expand="block" (click)="ir_pedidos()"><strong>Pedidos</strong></ion-button>
+    </ion-list>
+    <ion-list *ngIf="authService.type == 'Productor'">
+      <ion-button  expand="block" (click)="ir_productos()"><strong>Productos</strong></ion-button>
+    </ion-list>
+    <ion-list *ngIf="authService.type == 'Vendedor'">
+      <ion-button  expand="block" (click)="ir_usuarios()"><strong>Usuarios</strong></ion-button>
+      <ion-button  expand="block" (click)="ir_inventario()"><strong>Inventario</strong></ion-button>
+      <ion-button  expand="block" (click)="ir_cotizaciones()"><strong>Cotizaciones</strong></ion-button>
+      <ion-button  expand="block" (click)="ir_pedidos()"><strong>Pedidos</strong></ion-button>
+    </ion-list>
+</ion-content>

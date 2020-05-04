@@ -1,0 +1,56 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Registrar Usuarios</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <ion-img src="../assets/img/a1winBlack.png" style="width: 150px; height: 200px; display:block; margin:auto"></ion-img>
+
+  <form #form="ngForm" (ngSubmit)="register_user(form)" method="post">
+    <ion-item>
+        <ion-label position="floating">Nombre</ion-label>
+        <ion-input [(ngModel)]="user.name" name="name" id="name" pattern="[a-zA-Z ]*" required></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Apellido</ion-label>
+      <ion-input [(ngModel)]="user.last_name" name="last_name" id="last_name" pattern="[a-zA-Z ]*" required></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Número de Identificación</ion-label>
+      <ion-input [(ngModel)]="user.identification_number" name="identification_number" id="identification_number" pattern="[0-9]*" required></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Tipo de usuario</ion-label>
+      <ion-select [(ngModel)]="user.type" name="type" id="type" required>
+        <ion-item>
+          <ion-select-option  value="Administrador">Administrador</ion-select-option>
+          <!--<ion-select-option  value="Cliente">Cliente</ion-select-option>-->
+          <ion-select-option  value="Cliente/Tienda">Cliente</ion-select-option>
+          <ion-select-option  value="Productor">Productor</ion-select-option>
+          <ion-select-option  value="Vendedor">Vendedor</ion-select-option>
+        </ion-item>
+      </ion-select>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Correo Electrónico</ion-label>
+      <ion-input [(ngModel)]="user.email" name="email" id="email" pattern="^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$" required></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Contraseña</ion-label>
+      <ion-input [(ngModel)]="user.password" name="password" id="password" type="password" required></ion-input>
+    </ion-item>
+
+
+    <ion-button [disabled]="form.valid == false" type="submit" expand="full" color="success" onClick="this.disabled=true">Registar</ion-button>
+  </form>
+
+</ion-content>

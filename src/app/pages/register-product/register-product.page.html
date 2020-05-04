@@ -1,0 +1,82 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Registrar Producto</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <form #form="ngForm" (ngSubmit)="register_product(form)" method="post" enctype="multipart/form-data">
+    <ion-item>
+        <ion-label position="floating">Nombre</ion-label>
+        <ion-input [(ngModel)]="product.name" name="name" id="name"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Descripción</ion-label>
+      <ion-input [(ngModel)]="product.description" name="description" id="description"></ion-input>
+    </ion-item>
+
+    <ion-row>
+    <ion-col size="6">
+      <ion-item>
+        <ion-label position="floating">Talla</ion-label>
+        <ion-input [(ngModel)]="product.size" name="size" id="size"></ion-input>
+      </ion-item>
+    </ion-col>
+    <ion-col size="6">
+      <ion-item>
+        <ion-label position="floating">Precio</ion-label>
+        <ion-input type="number" [(ngModel)]="product.amount" name="amount" id="amount"></ion-input>
+      </ion-item>
+    </ion-col>
+    </ion-row>
+
+    <ion-item>
+      <ion-label position="floating">Imagen</ion-label>
+      <br>
+      <ion-input type="file"  [(ngModel)]="product.image" id="image" name="image"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Categoria</ion-label>
+      <ion-select [(ngModel)]="product.category_id" name="category_id" id="category_id">
+        <ion-item>
+          <ion-select-option *ngFor="let item of productService.categorias"  value="{{item.id}}">{{item.name}}</ion-select-option>
+        </ion-item>
+      </ion-select>
+    </ion-item>
+
+
+    <ion-item>
+      <ion-label>Color</ion-label>
+      <ion-select [(ngModel)]="product.color_id" name="color_id" id="color_id">
+        <ion-item>
+          <ion-select-option *ngFor="let item of productService.colores"  value="{{item.id}}">{{item.name}}</ion-select-option>
+        </ion-item>
+      </ion-select>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Insumo Asociado</ion-label>
+      <ion-select [(ngModel)]="product.supply_id" name="supply_id" id="supply_id">
+        <ion-item>
+          <ion-select-option *ngFor="let item of productService.insumos"  value="{{item.id}}">{{item.name}}</ion-select-option>
+        </ion-item>
+      </ion-select>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Cantidad</ion-label>
+      <ion-input type="number" [(ngModel)]="product.quantity" name="quantity" id="quantity" ></ion-input>
+    </ion-item>
+
+    <ion-input type="hidden" [(ngModel)]="product.user_id" name="user_id" id="user_id" value="{{ user }}"></ion-input>
+
+
+    <ion-button type="submit" expand="full" color="success" onClick="this.disabled=true">Registar Producto</ion-button>
+  </form>
+
+</ion-content>

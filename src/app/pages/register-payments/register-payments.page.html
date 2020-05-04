@@ -1,0 +1,62 @@
+<ion-header>
+    <ion-toolbar color="primary">
+      <ion-buttons slot="start">
+        <ion-menu-button></ion-menu-button>
+      </ion-buttons>
+      <ion-title>Registrar Pago</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  
+  <ion-content>
+    <ion-img src="../assets/img/a1winBlack.png" style="width: 150px; height: 150px; display:block; margin:auto"></ion-img>
+    <form #form="ngForm" (ngSubmit)="register_payment(form, productService.order_id_find)" method="post">
+      <ion-item>
+          <ion-label>Banco</ion-label>
+          <ion-select [(ngModel)]="pay.bank" name="bank" id="bank" required>
+            <ion-item>
+              <ion-select-option  value="Mercantil">Mercantil</ion-select-option>
+              <ion-select-option  value="Provincial">Provincial</ion-select-option>
+              <ion-select-option  value="Banesco">Banesco</ion-select-option>
+              <ion-select-option  value="Nacional de credito">Nacional de Credito</ion-select-option>
+              <ion-select-option  value="Tesoro">Tesoro</ion-select-option>
+              <ion-select-option  value="BanCaribe">BanCaribe</ion-select-option>
+              <ion-select-option  value="Venezolano de credito">Venezolano de Credito</ion-select-option>
+              <ion-select-option  value="Exterior">Exterior</ion-select-option>
+              <ion-select-option  value="Bicentenario">Bicentenario</ion-select-option>
+              <ion-select-option  value="Venezuela">Venezuela</ion-select-option>
+              <ion-select-option  value="Activo">Activo</ion-select-option>
+              <ion-select-option  value="Fondo Comun">Fondo Comun</ion-select-option>
+              <ion-select-option  value="Zelle">Zelle</ion-select-option>
+              <ion-select-option  value="Otros">Otros</ion-select-option>
+            </ion-item>
+          </ion-select>
+        </ion-item>
+  
+      <ion-item>
+        <ion-label position="floating">Número de Confirmación</ion-label>
+        <ion-input [(ngModel)]="pay.confirmation" name="confirmation" id="confirmation" pattern="[0-9+]*" required></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>Forma de Pago</ion-label>
+        <ion-select [(ngModel)]="pay.pay_format" name="pay_format" id="pay_format" required>
+          <ion-item>
+            <ion-select-option *ngFor="let item of productService.formats_payment"  value="{{item.id}}">{{item.name}}</ion-select-option>
+          </ion-item>
+        </ion-select>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="floating">Monto</ion-label>
+        <ion-input type="number" [(ngModel)]="pay.amount" name="amount" id="amount" pattern="[+]?([0-9]+(?:[\.][0-9]*)?|\.[0-9]+)" required></ion-input>
+      </ion-item>
+  
+      <ion-item>
+        <ion-label position="floating">Mensaje</ion-label>
+        <ion-input [(ngModel)]="pay.description" name="description" id="description"></ion-input>
+      </ion-item>
+  
+      <ion-button [disabled]="form.valid == false" type="submit" expand="full" color="secondary" onClick="this.disabled=true">Registar Pago</ion-button>
+    </form>
+  
+  </ion-content>

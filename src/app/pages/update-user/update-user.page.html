@@ -1,0 +1,52 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Actualizar Usuarios</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <ion-img src="../assets/img/a1winBlack.png" style="width: 150px; height: 200px; display:block; margin:auto"></ion-img>
+
+  <form #form="ngForm" (ngSubmit)="update_user(form,userService.user_find.id)" method="post">
+    <ion-item>
+        <ion-label position="floating">Nombre</ion-label>
+        <ion-input [(ngModel)]="user.name" name="name" id="name" value="{{userService.user_find.name}}" pattern="[a-zA-Z ]*" required></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Apellido</ion-label>
+      <ion-input [(ngModel)]="user.last_name" name="last_name" id="last_name" value="{{userService.user_find.lastname}}" pattern="[a-zA-Z ]*" required></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Número de Identificación</ion-label>
+      <ion-input [(ngModel)]="user.identification_number" name="identification_number" id="identification_number" value="{{userService.user_find.identification_number}}" readonly="readonly"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Tipo de usuario</ion-label>
+      <ion-input [(ngModel)]="user.type" name="type" id="type" value="{{userService.user_find.type}}" readonly="readonly"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Correo Electrónico</ion-label>
+      <ion-input [(ngModel)]="user.email" name="email" id="email" value="{{userService.user_find.email}}" pattern="^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$" required></ion-input>
+    </ion-item>
+
+    
+    <ion-item>
+      <ion-label style="text-align: center; margin: auto; padding-top: 5%; font-size: 90%; color:darkgray">Opcional</ion-label>
+      <ion-label position="floating">Contraseña</ion-label>
+      <ion-input [(ngModel)]="user.password" name="password" id="password" type="password"></ion-input>
+    </ion-item>
+
+
+    <ion-input type="hidden" [(ngModel)]="user.id" name="id" id="id" value="{{userService.user_find.id}}"></ion-input>
+
+    <ion-button [disabled]="form.valid == false" type="submit" expand="full" color="success" onClick="this.disabled=true">Actualizar</ion-button>
+  </form>
+
+</ion-content>
